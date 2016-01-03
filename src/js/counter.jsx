@@ -1,10 +1,11 @@
 var React = require('react');
 var Counter = React.createClass({
+    handler: function() {
+      console.log('pressed');
+    },
     render: function() {
       return (
-        <div>
-        Hello,
-        </div>
+        <input type="button" value="push" onClick={this.handler} />
       );
     }
 });
