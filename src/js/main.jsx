@@ -1,7 +1,7 @@
-var Hello = require('./hello');
+var Root = require('./counter_root');
 var React = require('react');
 
 React.render(
-  <Hello />,
+  <Root />,
   document.getElementById('content')
 );

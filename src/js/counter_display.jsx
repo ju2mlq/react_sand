@@ -1,5 +1,5 @@
 var React = require('react');
-var Hello = React.createClass({
+var counterDisplay = React.createClass({
     render: function() {
       return (
         <div>
@@ -9,4 +9,4 @@ var Hello = React.createClass({
     }
 });
 
-module.exports = Hello;
+module.exports = counterDisplay;
