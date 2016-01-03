@@ -1,10 +1,11 @@
-import koa from 'koa';
+'use strict';
+var koa = require('koa');
 
-const options = {
+var options = {
   PORT: 3000
 };
 
-let app = koa();
+var app = koa();
 
 app.use(function *(next) {
     this.body = 'hello, world';

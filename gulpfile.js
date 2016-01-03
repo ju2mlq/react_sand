@@ -1,9 +1,11 @@
-import gulp from 'gulp';
-import webpack from 'gulp-webpack';
-import koa from 'gulp-koa';
-import babel from 'gulp-babel';
+'use strict';
 
-const options = {
+var gulp = require('gulp')
+  , webpack = require('gulp-webpack')
+  , koa = require('gulp-koa')
+  , babel = require('gulp-babel');
+
+var options = {
   js: {
     src: "src/js/*.js",
     destfile: "bundle.js",
@@ -11,7 +13,7 @@ const options = {
   }
 };
 
-gulp.task('webpack', () => {
+gulp.task('webpack', function() {
     gulp.src([options.js.src])
         .pipe(webpack({
           output: {
@@ -21,22 +23,16 @@ gulp.task('webpack', () => {
         .pipe(gulp.dest(options.js.dest));
 });
 
-gulp.task('watch', () => {
+gulp.task('watch', function() {
     gulp.watch(options.js.src, ["webpack"]);
 });
 
-gulp.task('build_server', () => {
-    gulp.src('index.es6')
-        .pipe(babel())
-        .pipe(gulp.dest('index.js'));
-});
-
-gulp.task('koa', ['build_server'], () => {
+gulp.task('koa', function() {
     gulp.src('index.js')
         .pipe(koa('index.js'));
 });
 
-gulp.task('rebuild', () => {
+gulp.task('rebuild', function() {
     return gulp.src('index.js')
         .pipe(rebuild())
         .pipe(notify({
