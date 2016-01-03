@@ -2,8 +2,7 @@
 
 var gulp = require('gulp')
   , webpack = require('gulp-webpack')
-  , koa = require('gulp-koa')
-  , babel = require('gulp-babel');
+  , koa = require('gulp-koa');
 
 var options = {
   js: {
@@ -28,8 +27,14 @@ gulp.task('watch', function() {
 });
 
 gulp.task('koa', function() {
-    gulp.src('index.js')
-        .pipe(koa('index.js'));
+    var _fn = function() {
+      gulp.src('index.js')
+          .pipe(koa('index.js'));
+    };
+
+    gulp.watch(['index.js'], _fn);
+
+    _fn();
 });
 
 gulp.task('rebuild', function() {
