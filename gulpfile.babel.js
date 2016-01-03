@@ -1,5 +1,7 @@
 import gulp from 'gulp';
 import webpack from 'gulp-webpack';
+import koa from 'gulp-koa';
+import babel from 'gulp-babel';
 
 const options = {
   js: {
@@ -23,12 +25,15 @@ gulp.task('watch', () => {
     gulp.watch(options.js.src, ["webpack"]);
 });
 
-gulp.task('koa', () => {
-    gulp.src('public')
-    .pipe(webserver({
-          livereload: true,
-          open: true
-    }));
+gulp.task('build_server', () => {
+    gulp.src('index.es6')
+        .pipe(babel())
+        .pipe(gulp.dest('index.js'));
+});
+
+gulp.task('koa', ['build_server'], () => {
+    gulp.src('index.js')
+        .pipe(koa('index.js'));
 });
 
 gulp.task('rebuild', () => {
