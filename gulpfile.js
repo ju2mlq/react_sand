@@ -6,13 +6,17 @@ var gulp = require('gulp')
 
 var options = {
   js: {
-    src: "src/js/*.js",
-    destfile: "bundle.js",
-    dest: "public/javascripts/"
+    src: 'src/js/*.js',
+    destfile: 'bundle.js',
+    dest: 'public/javascript/'
+  },
+  html: {
+    src: 'src/html/*.html',
+    dest: 'public/html/'
   }
 };
 
-gulp.task('webpack', function() {
+gulp.task('js', function() {
     gulp.src([options.js.src])
         .pipe(webpack({
           output: {
@@ -22,8 +26,14 @@ gulp.task('webpack', function() {
         .pipe(gulp.dest(options.js.dest));
 });
 
+gulp.task('html', function() {
+    gulp.src([options.html.src])
+        .pipe(gulp.dest(options.html.dest));
+});
+
 gulp.task('watch', function() {
-    gulp.watch(options.js.src, ["webpack"]);
+    gulp.watch(options.js.src, ["js"]);
+    gulp.watch(options.html.src, ["html"]);
 });
 
 gulp.task('koa', function() {
@@ -35,14 +45,6 @@ gulp.task('koa', function() {
     gulp.watch(['index.js'], _fn);
 
     _fn();
-});
-
-gulp.task('rebuild', function() {
-    return gulp.src('index.js')
-        .pipe(rebuild())
-        .pipe(notify({
-              message: 'rebuild koa server!'
-        }));
 });
 
 gulp.task('default', ['watch']);
