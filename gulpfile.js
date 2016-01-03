@@ -2,11 +2,12 @@
 
 var gulp = require('gulp')
   , webpack = require('gulp-webpack')
-  , koa = require('gulp-koa');
+  , koa = require('gulp-koa')
+  , loader = require('jsx-loader');
 
 var options = {
   js: {
-    src: 'src/js/*.js',
+    src: 'src/js/*.jsx',
     destfile: 'bundle.js',
     dest: 'public/javascript/'
   },
@@ -16,13 +17,28 @@ var options = {
   }
 };
 
+var webpack_config = {
+  entry: './src/js/main.jsx',
+  output: {
+    filename: options.js.destfile
+  },
+  module: {
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: /(node_modules|bower_components|public)/,
+        loader: 'jsx-loader'
+      }
+    ]
+  },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  }
+};
+
 gulp.task('js', function() {
     gulp.src([options.js.src])
-        .pipe(webpack({
-          output: {
-            filename: options.js.destfile
-          }
-        }))
+        .pipe(webpack(webpack_config))
         .pipe(gulp.dest(options.js.dest));
 });
 

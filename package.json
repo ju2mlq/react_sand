@@ -11,7 +11,9 @@
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-koa": "^0.1.3",
-    "gulp-webpack": "^1.5.0"
+    "gulp-webpack": "^1.5.0",
+    "jsx-loader": "^0.13.2",
+    "webpack": "^1.12.9"
   },
   "dependencies": {
     "koa": "^1.1.2",
