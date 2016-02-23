@@ -52,6 +52,8 @@ gulp.task('watch', function() {
     gulp.watch(options.html.src, ["html"]);
 });
 
+gulp.task('build', ['js', 'html']);
+
 gulp.task('koa', function() {
     var _fn = function() {
       gulp.src('index.js')
